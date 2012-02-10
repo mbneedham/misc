@@ -2,19 +2,22 @@
 #include <string.h>
 #include <assert.h>
 
+void swap(char * s, int i, int j){
+      char temp = s[i];
+      s[i] = s[j];
+      s[j] = temp;
+      return;
+}
+
 void helper(char* s, int i){
   if (s[i] == '\0'){
     printf("%s\n", s);
   }else{
     int l = strlen(s);
     for (int j = i; j < l; j++){
-      char temp = s[i];
-      s[i] = s[j];
-      s[j] = temp;
+      swap(s, i, j);
       helper(s, i+1);
-      temp = s[i];
-      s[i] = s[j];
-      s[j] = temp;
+      swap(s, i, j);
     }
   }
   return;
