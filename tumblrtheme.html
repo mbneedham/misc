@@ -508,10 +508,8 @@ function update_opacities(){
     }       
 }  
 
-function fader(elements, step, startopacity, delay){
+function fader(elements, startopacity){
     this.fade_opacity = (typeof startopacity !== 'undefined') ? startopacity : 100;
-    this.step = (typeof step !== 'undefined') ? step : 1;
-    this.delay = (typeof delay !== 'undefined') ? delay : 33;
     this.elements = elements;
     this.popto = popto;
     this.fadeto = fadeto;
@@ -527,13 +525,13 @@ function popto(val){
     this.update_opacities(); 
 }
  
-function update(stop, done){
+function update(stop, step, delay, done){
     if (this.fade_opacity !== stop){
-	this.updating = setTimeout(function(thisObj){thisObj.update(stop, done)}, this.delay, this);
-	if (Math.abs(this.fade_opacity - stop) < this.step){
+	this.updating = setTimeout(function(thisObj){thisObj.update(stop, step, delay, done)}, delay, this);
+	if (Math.abs(this.fade_opacity - stop) < step){
 	    this.fade_opacity = stop;
 	}else{
-	    this.fade_opacity += this.fade_opacity > stop ? -this.step : this.step;
+	    this.fade_opacity += this.fade_opacity > stop ? -step : step;
 	}
 	this.update_opacities();	
     }else{
@@ -543,9 +541,11 @@ function update(stop, done){
     }
 }    
 
-function fadeto(stop, done){
+function fadeto(stop, step, delay, done){
+    step = (typeof step !== 'undefined') ? step : 1;
+    delay = (typeof delay !== 'undefined') ? delay : 33;
     clearTimeout(this.updating);
-    this.update(stop, done);
+    this.update(stop, step, delay, done);
 }
 
 function get_fadeelements(){
