@@ -355,11 +355,12 @@ src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
           {block:HasPages}
             {block:Pages}<li><a href="{URL}">{Label}</a></li> {/block:Pages}
           {/block:HasPages}
-          {block:AskEnabled}<li><a href="/ask">Ask</a></li>{/block:AskEnabled}
+          {block:AskEnabled}<li><a href="/ask" id="asklink">Ask</a></li>{/block:AskEnabled}
            <li><a href="mailto:outdarethenight@gmail.com">Contact</a></li>
           {block:SubmissionsEnabled}<li><a href="/submit">{SubmitLabel}</a></li>{/block:SubmissionsEnabled}
          <li class="end"><a href="/archive">{lang:Archive}</a></li>
         </ul>
+        
 </div>
         <div id="posts" class="autopagerize_page_element">
 						
@@ -492,70 +493,92 @@ src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
 
     <script type="text/javascript">
     <!--
-        //opacity detection code
-    var useOpacity = 
-        (typeof document.createElement("div").style.opacity != 'undefined');
-    var useFilter = 
-        !useOpacity && (typeof document.createElement("div").style.filter != 'undefined');
-    
-    var timer;
-    var fade_opacity = 100;
-    var fading;
+//opacity detection code.  IE uses a different method
+var useOpacity = 
+    (typeof document.createElement("div").style.opacity !== 'undefined');
+var useFilter = 
+    !useOpacity && (typeof document.createElement("div").style.filter !== 'undefined');
+function update_opacities(){      
+    for(var i=0;i<this.elements.length;i++){    
+        if(useOpacity){
+            this.elements[i].style.opacity = this.fade_opacity/100;
+        }else if (useFilter){
+            this.elements[i].style.filter = "alpha(opacity=" + this.fade_opacity + ")";
+        }
+    }       
+}  
+
+function fader(elements, step, startopacity, delay){
+    this.fade_opacity = (typeof startopacity !== 'undefined') ? startopacity : 100;
+    this.step = (typeof step !== 'undefined') ? step : 1;
+    this.delay = (typeof delay !== 'undefined') ? delay : 33;
+    this.elements = elements;
+    this.popto = popto;
+    this.fadeto = fadeto;
+    this.update = update;
+    this.updating;
+    this.update_opacities = update_opacities;
+    this.update_opacities();
+}
+
+function popto(val){
+    clearTimeout(this.updating);
+    this.fade_opacity = val;
+    this.update_opacities(); 
+}
+ 
+function update(stop, done){
+    if (this.fade_opacity !== stop){
+	this.updating = setTimeout(function(thisObj){thisObj.update(stop, done)}, this.delay, this);
+	if (Math.abs(this.fade_opacity - stop) < this.step){
+	    this.fade_opacity = stop;
+	}else{
+	    this.fade_opacity += this.fade_opacity > stop ? -this.step : this.step;
+	}
+	this.update_opacities();	
+    }else{
+	if (typeof done !== 'undefined'){
+	    done();
+	}
+    }
+}    
+
+function fadeto(stop, done){
+    clearTimeout(this.updating);
+    this.update(stop, done);
+}
+
+function get_fadeelements(){
+    var elements = document.getElementsByTagName("*");
     var fadeelements = [];
-    
-    function update_fadeelements(){
-        var elements = document.getElementsByTagName("*");
-        fadeelements = [];
-        for (var i=0;i<elements.length;i++){
-            if(elements[i].className.indexOf("fade") != -1){
+    for (var i=0;i<elements.length;i++){
+        if(elements[i].className.indexOf("fade") !== -1){
             fadeelements.push(elements[i]);
-            }
         }
+    }    
+    return fadeelements;
+}
+//-----------------------
+
+var f = new fader(get_fadeelements());
+var timer;
+
+function fadetimer() {
+    if (timer) {
+       clearTimeout(timer);
     }
-     
-    function update_opacities(opacity){      
-        for(var i=0;i<fadeelements.length;i++){
-            if(useOpacity){
-                fadeelements[i].style.opacity = opacity/100;
-            }else if (useFilter){
-                fadeelements[i].style.filter = "alpha(opacity=" + opacity + ")";
-            }
-        }       
-    }  
-    
-    function startFadeOut(){
-        document.onmousemove = null;
-        fadeOut();
-        document.getElementById("content").onmouseover = fadeIn;
-    }
-    
-    function fadeOut(){
-       if (fade_opacity > 0){
-           fade_opacity -= 1; 
-           fading = setTimeout(fadeOut, 33);                 
-           update_opacities(fade_opacity);        
-       }
-    }
-     
-    function fadeIn(){
-       clearTimeout(fading);
-           fade_opacity = 100;
-           update_opacities(fade_opacity); 
-           document.onmousemove = fadetimer;
-    }
-            
-    function fadetimer() {
-        if (timer) {
-           clearTimeout(timer);
-        }
-        
-        timer = setTimeout(function() {startFadeOut(); }, 10000)
-    }
-           
-       document.onmousemove = fadetimer;
-       update_fadeelements();
+    timer = setTimeout(function() {startFadeOut(); }, 10000)
+}
+
+function startFadeOut(){
+    document.onmousemove = null;//
+    f.fadeto(0);
+    document.getElementById("content").onmouseover = function m(){f.popto(100); document.onmousemove = fadetimer;}
+}
+document.onmousemove = fadetimer;
        -->
     </script>
+        
 <!-- Start of StatCounter Code for Tumblr -->
 <script type="text/javascript">
 var sc_project=6420389; 
