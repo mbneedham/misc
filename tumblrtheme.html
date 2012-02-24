@@ -1,0 +1,575 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- 
+  Theme: Easy Reader  v1.2
+  Author: Bill Israel  [http://cubicle17.com/]
+  For: Tumblr  [http://tumblr.com/]
+  Terms: Free to use and alter, but please give credit.
+-->
+  
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  {block:Description}<meta name="description" content="{MetaDescription}" />{/block:Description}
+  
+
+<!--<link href='http://fonts.googleapis.com/css?family=Tangerine:700&amp;text={URLEncodedTitle}|GFS+Didot' rel='stylesheet' type='text/css' />-->
+     <script type="text/javascript">
+   WebFontConfig = {
+     google: { families: [ 'Tangerine:700', 'Cantarell' ] }
+   };
+   (function() {
+     var wf = document.createElement('script');
+     wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+         '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+     wf.type = 'text/javascript';
+     wf.async = 'true';
+     var s = document.getElementsByTagName('script')[0];
+     s.parentNode.insertBefore(wf, s);
+   })();
+ </script>
+ <script type="text/javascript" 
+src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script> 
+
+  <!-- DEFAULTS -->  
+  <meta name="color:Background" content="#000000"/>  
+  <meta name="color:Text" content="#d0d0d0"/>  
+  <meta name="color:Title" content="#8C98A8"/>  
+  <meta name="color:Link" content="#717F8D"/>
+  <meta name="color:Color1" content="#d0d0d0"/> 
+  <meta name="color:Blockquote" content="#8C98A8" />
+  <meta name="font:Body" content="Georgia, serif" />
+  <!-- END DEFAULTS -->
+  
+  
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="{RSS}"/>
+  <title>{Title}{block:PostTitle} - {PostTitle}{/block:PostTitle}</title>
+  <link rel="icon" href="{Favicon}"/>
+  
+  <!-- iPhone -->
+  <meta name="viewport" content="width=775,scale=1.0"/>
+  <link rel="apple-touch-icon" href="{PortraitURL-128}"/>
+  
+  <style type="text/css">
+    body {
+      background: {color:Background};
+      color: {color:Text};
+      font: normal 1em/1.5em {font:Body};
+      text-align: center; /* for ie5.5/win */
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    a, a:active, a:visited {
+      color: {color:Link};
+      font-weight: bold;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    blockquote, ol, p, ul {
+      margin: 0 0 .5em;
+      padding: 0;
+    }
+    
+    ol, ul {
+      margin-left: 2em;
+      margin-right: 2em;
+    }
+    
+    blockquote {
+      border-left: 2px solid {color:Blockquote};
+      font-style: italic;
+      margin-left: 1em;
+      padding: 0 2em 0 1em;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0 0 .75em;
+      padding: 0;
+      
+    }
+    
+    h1{
+        font-size: 3em;
+        margin-bottom: .2em;
+        line-height: 1;
+    }
+
+    .wf-tangerine-n7-active h1 {
+      font-size: 5.5em;
+      font-family: 'Tangerine', serif;
+      margin-bottom: -.13em;
+    }
+    
+    h1 a, h1 a:visited, h1 a:active {
+      color: {color:Title};
+    }
+    
+    h1 a:hover {
+      color: {color:Link};
+      text-decoration: none;
+    }
+    
+    #header { position: relative;}  
+    #title, #leftline, #rightline{
+            position: absolute;
+    }
+    #title{
+        z-index: 10;
+    }    
+    #title a{ /*fix small issue with text outside the box and opacity*/
+        padding: 3px 1em 0 0;
+    }
+    #titlespacer{  height: 1em;}
+    #leftline, #rightline {
+        border: 1px solid {color:Color1};
+    }
+    #leftline{        
+        left: 0;
+        width: 62%;
+        z-index: 1;        
+        }
+    #rightline{
+        right: 0;
+        width: 38%;
+        z-index: 20;
+    }
+    
+    #meta {
+     /* list-style: none;*/
+      margin: 0.5em 0 1.5em;
+      padding: 0;
+      text-align: right;
+    }
+    
+    #meta li {
+      display: inline;  
+      border-right: 1px solid {color:Color1};
+      padding-right: .5em;
+      padding-left: .2em;*/
+      }
+    
+    #meta li.end{
+        border-right-style: hidden;
+        padding-right: 0em;
+    }  
+        
+    .greek {
+        font-family: 'GFS Didot', serif;
+        font-size: 1.1em;
+    }
+    
+    h3 {
+      font-size: 1.4em;
+    }
+
+/* Content container */
+    #content {
+      margin: 1.5em auto 0;
+      text-align: left;
+      width: 40em;
+      
+    } 
+    
+    /* Individual Posts */
+    .post {
+      padding: .5em 0 1em;
+      margin-bottom: 1em;
+    }
+    
+    .post .date {
+      border-top: 1px solid {color:Color1}; 
+      border-bottom: 1px solid {color:Color1};
+      float: left;
+      padding: .25em 1em;
+      text-align: center;
+    }
+    
+    .post .date .month, .post .date .day, .post .date .time {
+      color: {color:Text}; 
+      display: block;
+      font-weight: normal; 
+      line-height: 115%;
+    }
+    
+    .post .date .month {
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    
+    .post .date .day {
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+    
+    .post .regular, .post .quote, .post .link, .post .conversation,
+    .post .photo, .post .video, .post .audio, #notes{
+      margin-left: 7em;
+      padding: 0;
+    }
+    
+    .post .photo .caption, .post .video .caption,
+    .post .quote .source, .post .audio .caption, .otnsource{
+      display: block;
+      margin-bottom: 0.2em;
+    }
+    
+    .post .quote .source, .otnsource{
+        margin-left: 3.5em;
+        margin-top: .5em;
+    }
+    
+    .post .conversation ul {
+      list-style: none;
+      margin: 0 .5em 1.5em;
+      padding: 0;
+    }
+
+    .post .conversation ul li {
+      padding: .2em 0;
+    }
+    
+    .post .conversation ul li .person {
+      font-weight: bold;
+      margin-right: 1em;
+    }
+    
+    .post .post-footer {
+      margin-left: 7em;
+      text-align: right;
+      
+      /*margin-right: 1.5em;*/
+    }
+    
+    .post .post-footer {
+      font-size: .75em;
+      font-weight: normal;
+      margin-left: 1em;
+    }
+
+    .post .post-footer .source-url a { margin-right: 0.0em; font-weight: normal; }
+    
+    .when {
+        display: none;
+     }
+     
+    /* Previous and Next Links */
+    #prev-next {
+      padding: 1.5em 0 1em;
+      text-align: center;
+    }
+    
+    #prev {
+      margin-right: 1.5em;
+    }
+    #posts{
+        margin-top: 1em;
+    }
+    #next {
+      margin-left: 1.5em;
+    }
+        
+    #footer {
+        font-size: .85em;
+        height: 50px;
+    }
+    
+    #footer ul {
+      list-style: none;
+      margin: 1em 0;
+      padding: 0;
+      text-align: center;
+    }
+    
+    #footer ul li {
+      display: inline;
+      margin: 0.5em;
+    }
+
+	.query { font-weight: bold; }
+    
+    .regular img {
+        max-width: 100%;
+    }
+    
+    ol.notes {
+        width: 448px;
+        margin: 15px 0 30px;
+    }
+    
+    ol.reblogroot {
+        margin: 0;
+    }
+        
+    ol.notes {
+        list-style-type: none;
+    }
+    
+    .search_query { font-weight: bold; }
+    
+    /* Tags */
+    .tags { display: block; }
+    .tags .tag { margin-right: 0.0em; font-weight: normal; }
+    
+    #tagpageblurb { margin: 1.5em 0; text-align: center; }
+    #tagpageblurb .tag { font-weight: bold; }
+    
+    
+    /* scrollbar */
+    ::-webkit-scrollbar {
+        width: 14px;
+    }
+    
+    ::-webkit-scrollbar-button{
+        display: none;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background-color: Black;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+        background-color: Grey;
+    }
+    
+    
+    /* Custom CSS */
+  </style>
+</head>
+<body>
+    <div id="contain">     
+      <div id="content">
+        <div id="header">
+            <h1 id="title" class="fade"><a href="/">{Title}</a></h1>
+            <h1 id="titlespacer"></h1>
+      <span id="leftline" class="fade"></span><span id="rightline" class="fade"></span>
+        <ul id="meta" class="fade">
+          {block:HasPages}
+            {block:Pages}<li><a href="{URL}">{Label}</a></li> {/block:Pages}
+          {/block:HasPages}
+          {block:AskEnabled}<li><a href="/ask">Ask</a></li>{/block:AskEnabled}
+           <li><a href="mailto:outdarethenight@gmail.com">Contact</a></li>
+          {block:SubmissionsEnabled}<li><a href="/submit">{SubmitLabel}</a></li>{/block:SubmissionsEnabled}
+         <li class="end"><a href="/archive">{lang:Archive}</a></li>
+        </ul>
+</div>
+        <div id="posts" class="autopagerize_page_element">
+						
+				{block:TagPage}
+				<div id="tagpageblurb">
+				    <p>{lang:Posts tagged Tag 2}</p>
+				</div>
+				{/block:TagPage}
+				
+        {block:Posts}
+        <div class="post">
+          {block:NewDayDate}
+          <div class="date fade">
+            <span class="month">{ShortMonth}</span>
+            <span class="day">{DayOfMonth}</span>
+          </div>
+          {/block:NewDayDate}
+          
+          {block:Text}
+          <div class="regular">
+            {block:Title}<h3>{Title}</h3>{/block:Title}
+            {Body}
+          </div>
+          {/block:Text} 
+
+          {block:Quote}
+          <div class="quote">
+            <div class="words">{Quote}</div>
+            {block:Source}<span class="source">&mdash;{Source}</span>{/block:Source}
+          </div>
+         {/block:Quote}
+
+          {block:Link}
+          <div class="link">
+            <h3><a href="{URL}" {Target}>{Name}</a></h3>
+            <div class="link-body">
+            {block:Description}{Description}{/block:Description}
+            </div>
+          </div>
+          {/block:Link}
+        
+          {block:Chat}
+          <div class="conversation">
+            {block:Title}<h3>{Title}</h3>{/block:Title}
+            <ul>
+              {block:Lines}
+              <li>
+                {block:Label}<span class="person">{Label}</span>{/block:Label}
+                <span class="line">{Line}</span></li>
+              {/block:Lines}
+            </ul>
+          </div>
+          {/block:Chat}
+
+          {block:Photo}
+          <div class="photo">
+            <img src="{PhotoURL-500}" alt="{PhotoAlt}"/>
+            {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+          </div>
+          {/block:Photo}
+
+          {block:Video}
+          <div class="video">
+            {Video-500}
+            {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+          </div>
+          {/block:Video}
+          
+          {block:Audio}
+          <div class="audio">
+            {AudioPlayerBlack}
+            <div style="display:none">{PlayCountWithLabel}</div>
+            {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+          </div>
+          {/block:Audio}
+          
+          
+        <div class="post-footer fade">
+        {block:IndexPage}
+                <a href="{Permalink}" class="permalink">{NoteCountWithLabel}</a>                          
+        {/block:IndexPage}
+        
+        {block:Permalink}
+        <span class="when">{lang:Posted at FormattedTime}</span>
+        {block:ContentSource}
+                <a href="{SourceURL}">source</a>
+        {/block:ContentSource}
+        {/block:Permalink}
+               </div>  
+               
+        {block:Permalink}
+        {block:PostNotes}<div id="notes" class="fade">
+        {block:RebloggedFrom}
+        <ol class="notes reblogroot">
+        <li><a href="{ReblogRootURL}"><img src="{ReblogRootPortraitURL-16}" class="avatar" /></a><span class="action"><a href="{ReblogRootURL}">{ReblogRootName}</a> first posted this</span></li>
+        </ol>{/block:RebloggedFrom}{PostNotes}</div>{/block:PostNotes}
+
+{/block:Permalink}
+   
+        </div> <!-- end single post -->
+               
+        {/block:Posts}
+        </div>
+       {block:Pagination}
+        <div id="prev-next" class="autopagerize_insert_before">
+          {block:NextPage}<a href="{NextPage}" id="prev" rel="next">&#8592; {lang:older}</a>{/block:NextPage}
+          {lang:Page CurrentPage of TotalPages}
+          {block:PreviousPage}<a href="{PreviousPage}" id="next">{lang:newer} &#8594;</a>{/block:PreviousPage}
+        </div>
+        {/block:Pagination}
+        
+<!--
+    <div id="footer" class="fade">
+      <ul>
+        <li><a href="http://tumblr.com/">Tumblr</a> powered</li>
+        <li><a href="http://cubicle17.com/">Bill Israel</a> designed</li>
+      </ul>       
+    </div>  -->
+  </div> <!-- end content div -->
+  
+  
+  <noscript><div
+  class="statcounter"><a title="tumblr stats"
+  href="http://statcounter.com/tumblr/" target="_blank"><img
+  class="statcounter"
+  src="http://c.statcounter.com/6420389/0/d9ce8a11/1/"
+  alt="tumblr stats" /></a></div></noscript>
+</div>
+    
+
+    <script type="text/javascript">
+    <!--
+        //opacity detection code
+    var useOpacity = 
+        (typeof document.createElement("div").style.opacity != 'undefined');
+    var useFilter = 
+        !useOpacity && (typeof document.createElement("div").style.filter != 'undefined');
+    
+    var timer;
+    var fade_opacity = 100;
+    var fading;
+    var fadeelements = [];
+    
+    function update_fadeelements(){
+        var elements = document.getElementsByTagName("*");
+        fadeelements = [];
+        for (var i=0;i<elements.length;i++){
+            if(elements[i].className.indexOf("fade") != -1){
+            fadeelements.push(elements[i]);
+            }
+        }
+    }
+     
+    function update_opacities(opacity){      
+        for(var i=0;i<fadeelements.length;i++){
+            if(useOpacity){
+                fadeelements[i].style.opacity = opacity/100;
+            }else if (useFilter){
+                fadeelements[i].style.filter = "alpha(opacity=" + opacity + ")";
+            }
+        }       
+    }  
+    
+    function startFadeOut(){
+        document.onmousemove = null;
+        fadeOut();
+        document.getElementById("content").onmouseover = fadeIn;
+    }
+    
+    function fadeOut(){
+       if (fade_opacity > 0){
+           fade_opacity -= 1; 
+           fading = setTimeout(fadeOut, 33);                 
+           update_opacities(fade_opacity);        
+       }
+    }
+     
+    function fadeIn(){
+       clearTimeout(fading);
+           fade_opacity = 100;
+           update_opacities(fade_opacity); 
+           document.onmousemove = fadetimer;
+    }
+            
+    function fadetimer() {
+        if (timer) {
+           clearTimeout(timer);
+        }
+        
+        timer = setTimeout(function() {startFadeOut(); }, 10000)
+    }
+           
+       document.onmousemove = fadetimer;
+       update_fadeelements();
+       -->
+    </script>
+<!-- Start of StatCounter Code for Tumblr -->
+<script type="text/javascript">
+var sc_project=6420389; 
+var sc_invisible=1; 
+var sc_security="d9ce8a11"; 
+</script>
+<script type="text/javascript"
+src="http://www.statcounter.com/counter/counter_xhtml.js"></script>
+<noscript><div class="statcounter"><a title="counter for
+tumblr" href="http://statcounter.com/tumblr/"
+class="statcounter"><img class="statcounter"
+src="http://c.statcounter.com/6420389/0/d9ce8a11/1/"
+alt="counter for tumblr" /></a></div></noscript>
+<!-- End of StatCounter Code for Tumblr -->
+    
+</body>
+</html>
