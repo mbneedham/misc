@@ -18,7 +18,6 @@ function fader(elements, startopacity){
     this.elements = elements;
     this.popto = popto;
     this.fadeto = fadeto;
-    this.update = update;
     this.updating;
     this.update_opacities = update_opacities;
     this.update_opacities();
@@ -30,15 +29,15 @@ function popto(val){
     this.update_opacities(); 
 }
  
-function update(stop, step, delay, done){
-    if (this.fade_opacity !== stop){
-	this.updating = setTimeout(function(thisObj){thisObj.update(stop, step, delay, done)}, delay, this);
-	if (Math.abs(this.fade_opacity - stop) < step){
-	    this.fade_opacity = stop;
+function update(element, stop, step, delay, done){
+    if (element.fade_opacity !== stop){
+	element.updating = setTimeout(function(){update(element, stop, step, delay, done)}, delay);
+	if (Math.abs(element.fade_opacity - stop) < step){
+	    element.fade_opacity = stop;
 	}else{
-	    this.fade_opacity += this.fade_opacity > stop ? -step : step;
+	    element.fade_opacity += element.fade_opacity > stop ? -step : step;
 	}
-	this.update_opacities();	
+	element.update_opacities();	
     }else{
 	if (typeof done !== 'undefined'){
 	    done();
@@ -50,7 +49,7 @@ function fadeto(stop, step, delay, done){
     step = (typeof step !== 'undefined') ? step : 1;
     delay = (typeof delay !== 'undefined') ? delay : 33;
     clearTimeout(this.updating);
-    this.update(stop, step, delay, done);
+    update(this, stop, step, delay, done);
 }
 
 function get_fadeelements(){
